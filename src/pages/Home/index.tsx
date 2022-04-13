@@ -1,3 +1,4 @@
+import { Footer } from '../../components/Footer'
 import { Header } from '../../components/Header'
 import ImageHome from '../../components/ImageHome'
 import ListMovies from '../../components/ListMovies'
@@ -8,8 +9,8 @@ export function Home() {
     <Container>
       <Header />
       <ImageHome />
-
       <ListMovies />
+      <Footer />
     </Container>
   )
 }

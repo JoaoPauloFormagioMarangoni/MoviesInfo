@@ -5,12 +5,10 @@ import { Container } from './styles'
 export function Header() {
   return (
     <Container>
-      <h1>
-        Movies.<span>Info</span>
-      </h1>
+      <h1>Movies.Info</h1>
       <div>
         <RiUserLine />
-        <RiHome2Line className='house'/>
+        <RiHome2Line className="house" />
         <BsGear />
       </div>
     </Container>

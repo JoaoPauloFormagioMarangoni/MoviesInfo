@@ -21,8 +21,10 @@ interface PopularMoviesProps {
 
 interface MoviesContextProps {
   allPopularMovies: (numberPage: number) => void
+  selectOnlyOneMovie: (id: number) => void
   popularMovies: PopularMoviesProps[]
   lastMovie: PopularMoviesProps | undefined
+  onlyOneMovie: PopularMoviesProps | undefined
 }
 
 interface MoviesProviderProps {
@@ -33,6 +35,7 @@ const MoviesContext = createContext({} as MoviesContextProps)
 
 export function MoviesProvider({ children }: MoviesProviderProps) {
   const [popularMovies, setPopularMovies] = useState<PopularMoviesProps[]>([])
+  const [onlyOneMovie, setOnlyOneMovie] = useState<PopularMoviesProps>()
   const [lastMovie, setLastMovie] = useState<PopularMoviesProps>()
 
   async function allPopularMovies(numberPage: number) {
@@ -44,21 +47,28 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
     setPopularMovies([...response.data.results])
   }
 
+  function selectOnlyOneMovie(id: number) {
+    const movie = popularMovies.filter(movie => movie.id === id)
+
+    setOnlyOneMovie(movie[0])
+  }
+
   useEffect(() => {
-    async function lastMovieReleased(): Promise<PopularMoviesProps> {
+    async function lastMovieReleased() {
       const response = await allMoviesNow.get('', {
         params: {
           page: 1,
         },
       })
-      return response.data.results[0]
+      setLastMovie(response.data.results[0])
+      setPopularMovies(response.data.results)
     }
-    lastMovieReleased().then((response) => setLastMovie(response))
+    lastMovieReleased()
   }, [])
 
   return (
     <MoviesContext.Provider
-      value={{ allPopularMovies, popularMovies, lastMovie }}
+      value={{ allPopularMovies, popularMovies, lastMovie, onlyOneMovie, selectOnlyOneMovie }}
     >
       {children}
     </MoviesContext.Provider>
