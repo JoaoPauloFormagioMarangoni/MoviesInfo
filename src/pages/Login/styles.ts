@@ -110,3 +110,11 @@ export const Main = styled.main`
     }
   }
 `
+
+export const LoadingRepositories = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #000;
+`

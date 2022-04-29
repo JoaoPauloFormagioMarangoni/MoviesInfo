@@ -1,31 +1,22 @@
-import { connect } from 'react-redux'
-import { bindActionCreators, Dispatch } from 'redux'
-import { ApplicationState } from '../../store'
-import * as RepositoriesActions from '../../store/ducks/moviesRepository/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../store'
 
 import { Container } from './styles'
-
 import { AiFillStar } from 'react-icons/ai'
 import { BiRightArrow } from 'react-icons/bi'
-import { Repository } from '../../store/ducks/moviesRepository/types'
+import { getOneMovieRequest } from '../../store/ducks/moviesRepository/actions'
+import { useNavigate } from 'react-router'
 
-interface StateProps {
-  repositories: Repository[]
-}
+export function ImageHome() {
+  const { data } = useSelector((state: RootState) => state.moviesRepository)
+  const dispatch = useDispatch()
 
-interface DispatchProps {
-  loadRequest(): void
-  loadSuccess(data: Repository[]): void
-  loadFailure(): void
-}
+  const navigate = useNavigate()
 
-type Props = StateProps & DispatchProps
-
-function ImageHome({ repositories }: Props) {
   const IMG_API = 'https://image.tmdb.org/t/p/w1280'
 
   function voteStarClassName(verificationNumber: number) {
-    const numberVote = Number(repositories[0]?.vote_average) * 10
+    const numberVote = Number(data[0].vote_average) * 10
     const completeStar = numberVote >= verificationNumber ? true : false
 
     const halfStar =
@@ -42,32 +33,29 @@ function ImageHome({ repositories }: Props) {
     return 'star'
   }
 
+  function handleSelectMovie(id: number) {
+    dispatch(getOneMovieRequest(id))
+
+    navigate('/movieinfo')
+  }
+
   return (
     <Container>
-      <img src={IMG_API + repositories[0]?.backdrop_path} alt="" />
+      <img src={IMG_API + data[0].backdrop_path} alt="" />
       <div>
-        <h2>{repositories[0]?.title}</h2>
+        <h2>{data[0].title}</h2>
         <div>
-          <span>{repositories[0]?.vote_average}</span>
+          <span>{data[0].vote_average}</span>
           <AiFillStar className={voteStarClassName(20)} />
           <AiFillStar className={voteStarClassName(40)} />
           <AiFillStar className={voteStarClassName(60)} />
           <AiFillStar className={voteStarClassName(80)} />
           <AiFillStar className={voteStarClassName(100)} />
         </div>
-        <button>
+        <button onClick={() => handleSelectMovie(data[0].id)}>
           Ver informações <BiRightArrow className='arrow' />
         </button>
       </div>
     </Container>
   )
 }
-
-const mapStateToProps = (state: ApplicationState) => ({
-  repositories: state.moviesRepository.data,
-})
-
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(RepositoriesActions, dispatch)
-
-export default connect(mapStateToProps, mapDispatchToProps)(ImageHome)

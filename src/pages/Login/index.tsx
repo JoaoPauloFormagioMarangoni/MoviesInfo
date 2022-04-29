@@ -1,7 +1,5 @@
-import { connect } from 'react-redux'
-import { bindActionCreators, Dispatch } from 'redux'
-import { ApplicationState } from '../../store'
-import * as RepositoriesActions from '../../store/ducks/moviesRepository/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../store'
 
 import { Container, Main } from './styles'
 import LoginUp from '../../assets/loginUp.svg'
@@ -10,28 +8,30 @@ import { FormComponent } from '../../components/FormComponent'
 
 import { FcGoogle } from 'react-icons/fc'
 import { BsInstagram, BsTwitter } from 'react-icons/bs'
-import { Repository } from '../../store/ducks/moviesRepository/types'
+import { useEffect } from 'react'
+import { loadRequest } from '../../store/ducks/moviesRepository/actions'
 
-interface StateProps {
-  repositories: Repository[]
-}
+export function Login() {
+  const { data, loading } = useSelector((state: RootState) => state.moviesRepository)
+  const dispatch = useDispatch()
 
-interface DispatchProps {
-  loadRequest(): void
-  loadSuccess(data: Repository[]): void
-  loadFailure(): void
-}
+  useEffect(() => {
+    dispatch(loadRequest(1))
+  }, [])
 
-type Props = StateProps & DispatchProps
-
-function Login({ repositories }: Props) {
   const IMG_API = 'https://image.tmdb.org/t/p/w1280'
 
   return (
     <Container>
       <div>
-        <img src={IMG_API + repositories[0]?.backdrop_path} alt={repositories[0]?.title} />
-        <span>{repositories[0]?.title}</span>
+        {loading ? (
+          <span></span>
+        ) : (
+          <>
+            <img src={IMG_API + data[0].backdrop_path} alt={data[0].title} />
+            <span>{data[0].title}</span>
+          </>
+        )}
       </div>
       <Main>
         <img src={LoginUp} alt="" />
@@ -56,12 +56,3 @@ function Login({ repositories }: Props) {
     </Container>
   )
 }
-
-const mapStateToProps = (state: ApplicationState) => ({
-  repositories: state.moviesRepository.data,
-})
-
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(RepositoriesActions, dispatch)
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login)

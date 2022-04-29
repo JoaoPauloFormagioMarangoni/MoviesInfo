@@ -1,7 +1,7 @@
 import { FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../../context/AuthContext'
-import { Form, RememberInfos, LabelCheckbox } from './styles'
+import { Form, RememberInfos, LabelCheckbox, Loading } from './styles'
 
 export function FormComponent() {
   const { loading, authenticated, handleLogin } = useAuthContext()
@@ -38,7 +38,11 @@ export function FormComponent() {
           carefully and I agree with the same.
         </label>
       </LabelCheckbox>
-      <input type="submit" value="Login" />
+      {loading ? (
+        <Loading></Loading>
+      ) : (
+        <input type="submit" value="Login" />
+      )}
       <div className="createAccount">
         Don't have account? <a href="#">Create account</a>
       </div>

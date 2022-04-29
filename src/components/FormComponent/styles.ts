@@ -121,3 +121,7 @@ export const LabelCheckbox = styled.label`
     }
   }
 `
+
+export const Loading = styled.span`
+
+`

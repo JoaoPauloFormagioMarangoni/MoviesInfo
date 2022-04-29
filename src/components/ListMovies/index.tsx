@@ -1,36 +1,27 @@
-import { connect } from 'react-redux'
-import { bindActionCreators, Dispatch } from 'redux'
-import { ApplicationState } from '../../store'
-import * as RepositoriesActions from '../../store/ducks/moviesRepository/actions'
-
-import { Repository } from '../../store/ducks/moviesRepository/types'
 import { Container, H2 } from './styles'
 
 import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs'
 import { AiFillStar } from 'react-icons/ai'
-import { useMovies } from '../../context/movieContext'
 import { useNavigate } from 'react-router'
+import { RootState } from '../../store'
+import { useEffect } from 'react'
+import { getOneMovieRequest, loadRequest } from '../../store/ducks/moviesRepository/actions'
+import { useDispatch, useSelector } from 'react-redux'
 
-interface StateProps {
-  repositories: Repository[]
-}
-
-interface DispatchProps {
-  loadRequest(): void
-  loadSuccess(data: Repository[]): void
-  loadFailure(): void
-}
-
-type Props = StateProps & DispatchProps
-
-function ListMovies({ repositories }: Props) {
-  const { selectOnlyOneMovie, onlyOneMovie } = useMovies()
+export default function ListMovies() {
   const navigate = useNavigate()
+
+  const { data } = useSelector((state: RootState) => state.moviesRepository)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(loadRequest(1))
+  }, [])
 
   const IMG_API = 'https://image.tmdb.org/t/p/w1280'
 
   function voteStarClassName(verificationNumber: number, index: number) {
-    const numberVote = Number(repositories[index]?.vote_average) * 10
+    const numberVote = Number(data[index].vote_average) * 10
     const completeStar = numberVote >= verificationNumber ? true : false
 
     const halfStar =
@@ -48,36 +39,36 @@ function ListMovies({ repositories }: Props) {
   }
 
   function handleSelectMovie(id: number) {
-    selectOnlyOneMovie(id)
+    dispatch(getOneMovieRequest(id))
 
     navigate('/movieinfo')
   }
 
   return (
     <Container>
-      <H2 backgroundImage={IMG_API + repositories[0].backdrop_path}>
+      <H2 backgroundImage={IMG_API + data[0].backdrop_path}>
         Últimos filmes lançados
       </H2>
       <ul>
-        {repositories.map((movie) => (
+        {data.map((movie, index) => (
           <li key={movie.id} onClick={() => handleSelectMovie(movie.id)}>
             <h3>{movie.title}</h3>
             <div>
               <span>{movie.vote_average}</span>
               <AiFillStar
-                className={voteStarClassName(20, repositories.indexOf(movie))}
+                className={voteStarClassName(20, data.indexOf(movie))}
               />
               <AiFillStar
-                className={voteStarClassName(40, repositories.indexOf(movie))}
+                className={voteStarClassName(40, data.indexOf(movie))}
               />
               <AiFillStar
-                className={voteStarClassName(60, repositories.indexOf(movie))}
+                className={voteStarClassName(60, data.indexOf(movie))}
               />
               <AiFillStar
-                className={voteStarClassName(80, repositories.indexOf(movie))}
+                className={voteStarClassName(80, data.indexOf(movie))}
               />
               <AiFillStar
-                className={voteStarClassName(100, repositories.indexOf(movie))}
+                className={voteStarClassName(100, data.indexOf(movie))}
               />
             </div>
             <img src={IMG_API + movie.poster_path} alt={movie.title} />
@@ -94,12 +85,3 @@ function ListMovies({ repositories }: Props) {
     </Container>
   )
 }
-
-const mapStateToProps = (state: ApplicationState) => ({
-  repositories: state.moviesRepository.data,
-})
-
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(RepositoriesActions, dispatch)
-
-export default connect(mapStateToProps, mapDispatchToProps)(ListMovies)
