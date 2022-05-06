@@ -24,4 +24,17 @@ export const Container = styled.footer`
       margin: 0 15px;
     }
   }
+
+  @media (max-width: 365px) {
+    flex-direction: column;
+
+    h1 {
+      margin-bottom: 15px;
+    }
+
+    div {
+      width: 100%;
+      justify-content: space-around;
+    }
+  }
 `

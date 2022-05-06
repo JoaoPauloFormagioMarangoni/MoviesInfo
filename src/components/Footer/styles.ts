@@ -15,4 +15,12 @@ export const Container = styled.footer`
     text-shadow: 2px 2px 0px #fff, 2px -2px 0px #000, -2px 2px 0px #000,
       -2px -2px 0px #fff;
   }
+
+  @media (max-width: 430px) {
+    flex-direction: column;
+
+    > span {
+      margin-bottom: 10px;
+    }
+  }
 `

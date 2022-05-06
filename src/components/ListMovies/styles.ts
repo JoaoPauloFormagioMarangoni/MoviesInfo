@@ -84,6 +84,18 @@ export const Container = styled.div`
       }
     }
   }
+
+  @media (max-width: 740px) {
+    ul {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 445px) {
+    ul {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
 `
 
 export const H2 = styled.h2<H2Props>`

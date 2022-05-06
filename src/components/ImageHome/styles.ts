@@ -82,6 +82,21 @@ export const Container = styled.div`
       }
     }
   }
+
+  @media (max-width: 577px) {
+    > div {
+      h2 {
+        bottom: 100px;
+        right: 50%;
+        transform: translateX(50%);
+      }
+
+      button {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
 `
 
 export const Star = styled.span`

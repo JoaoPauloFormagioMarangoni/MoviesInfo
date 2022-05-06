@@ -34,6 +34,7 @@ export const MovieArticle = styled.article<H2Props>`
     justify-content: center;
     gap: 50px;
     padding: 10px 0;
+    margin: 0 20px;
 
     > div {
       display: flex;
@@ -57,11 +58,24 @@ export const MovieArticle = styled.article<H2Props>`
   > p {
     font-size: 1.3rem;
     line-height: 32px;
+    letter-spacing: 2px;
     text-align: justify;
     width: 70vw;
     margin: 20px 0 40px;
     margin-left: 50%;
     transform: translateX(-50%);
+  }
+
+  @media (max-width: 680px) {
+    > div {
+      flex-direction: column;
+      gap: 20px;
+
+      div {
+        width: 260px;
+        justify-content: center;
+      }
+    }
   }
 `
 
@@ -70,7 +84,7 @@ export const Star = styled.span`
 
   &.star {
     margin: -7px 2px 0 2px;
-    
+
     &.active {
       color: #ffd700;
     }
