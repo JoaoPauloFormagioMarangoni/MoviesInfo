@@ -67,14 +67,6 @@ export const Container = styled.div`
           margin-right: 10px;
           font-weight: bold;
         }
-
-        .star {
-          font-size: 1rem;
-        }
-
-        .active {
-          color: #ffd700;
-        }
       }
 
       &:hover {
@@ -92,22 +84,6 @@ export const Container = styled.div`
       }
     }
   }
-
-  > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    padding: 20px 0;
-    width: 100%;
-
-    font-size: 1.3rem;
-    font-weight: bolder;
-
-    span.active {
-      color: rgba(126, 11, 192, 1);
-    }
-  }
 `
 
 export const H2 = styled.h2<H2Props>`
@@ -120,4 +96,54 @@ export const H2 = styled.h2<H2Props>`
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+`
+
+export const Star = styled.span`
+  &.star {
+    font-size: 1.3rem;
+    margin: -6px 2px 0 2px;
+
+    &.active {
+      color: #ffd700;
+    }
+
+    &.halfActive {
+      background: linear-gradient(
+        90deg,
+        rgba(255, 215, 0, 1) 50%,
+        rgba(255, 255, 255, 1) 50%
+      );
+
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+  }
+`
+
+export const Pagination = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px 0;
+  width: 100%;
+
+  font-size: 1.3rem;
+  font-weight: bolder;
+
+  span.active {
+    color: rgba(126, 11, 192, 1);
+  }
+
+  .backArrow,
+  .nextArrow,
+  span {
+    cursor: pointer;
+  }
+
+  .backArrow,
+  .nextArrow {
+    font-size: 1.5rem;
+  }
 `

@@ -53,26 +53,6 @@ export const Container = styled.div`
         margin-right: 10px;
         font-weight: bold;
       }
-
-      .star {
-        font-size: 1.4rem;
-      }
-
-      .active {
-        color: #ffd700;
-      }
-
-      /* .halfActive {
-        background: linear-gradient(
-          90deg,
-          rgba(255, 215, 0, 1) 50%,
-          transparent 50%,
-          transparent 100%
-        );
-
-        background-clip: text;
-        color: transparent;
-      } */
     }
 
     button {
@@ -100,6 +80,29 @@ export const Container = styled.div`
       &:hover .arrow {
         font-size: 1.4rem;
       }
+    }
+  }
+`
+
+export const Star = styled.span`
+  &.star {
+    font-size: 1.6rem;
+    margin: -6px 2px 0 2px;
+
+    &.active {
+      color: #ffd700;
+    }
+
+    &.halfActive {
+      background: linear-gradient(
+        90deg,
+        rgba(255, 215, 0, 1) 50%,
+        rgba(255, 255, 255, 1) 50%
+      );
+
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
     }
   }
 `

@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store'
 
-import { Container } from './styles'
-import { AiFillStar } from 'react-icons/ai'
+import { Container, Star } from './styles'
 import { BiRightArrow } from 'react-icons/bi'
 import { getOneMovieRequest } from '../../store/ducks/moviesRepository/actions'
 import { useNavigate } from 'react-router'
@@ -15,12 +14,12 @@ export function ImageHome() {
 
   const IMG_API = 'https://image.tmdb.org/t/p/w1280'
 
-  function voteStarClassName(verificationNumber: number) {
+  function voteStar(verificationNumber: number) {
     const numberVote = Number(data[0].vote_average) * 10
     const completeStar = numberVote >= verificationNumber ? true : false
 
     const halfStar =
-      numberVote > verificationNumber - 20 && numberVote < verificationNumber
+      numberVote >= verificationNumber - 10 && numberVote < verificationNumber
         ? true
         : false
 
@@ -46,14 +45,14 @@ export function ImageHome() {
         <h2>{data[0].title}</h2>
         <div>
           <span>{data[0].vote_average}</span>
-          <AiFillStar className={voteStarClassName(20)} />
-          <AiFillStar className={voteStarClassName(40)} />
-          <AiFillStar className={voteStarClassName(60)} />
-          <AiFillStar className={voteStarClassName(80)} />
-          <AiFillStar className={voteStarClassName(100)} />
+          <Star className={voteStar(20)}>&#9733;</Star>
+          <Star className={voteStar(40)}>&#9733;</Star>
+          <Star className={voteStar(60)}>&#9733;</Star>
+          <Star className={voteStar(80)}>&#9733;</Star>
+          <Star className={voteStar(100)}>&#9733;</Star>
         </div>
         <button onClick={() => handleSelectMovie(data[0].id)}>
-          Ver informações <BiRightArrow className='arrow' />
+          Ver informações <BiRightArrow className="arrow" />
         </button>
       </div>
     </Container>
