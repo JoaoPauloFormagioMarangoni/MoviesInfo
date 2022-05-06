@@ -58,7 +58,7 @@ export default function ListMovies() {
   return (
     <Container>
       <H2 backgroundImage={IMG_API + data[0].backdrop_path}>
-        Últimos filmes lançados
+        Latest movies released
       </H2>
       <ul>
         {data.map((movie) => (
@@ -66,18 +66,10 @@ export default function ListMovies() {
             <h3>{movie.title}</h3>
             <div>
               <span>{movie.vote_average}</span>
-              <Star className={voteStar(20, data.indexOf(movie))}>
-                &#9733;
-              </Star>
-              <Star className={voteStar(40, data.indexOf(movie))}>
-                &#9733;
-              </Star>
-              <Star className={voteStar(60, data.indexOf(movie))}>
-                &#9733;
-              </Star>
-              <Star className={voteStar(80, data.indexOf(movie))}>
-                &#9733;
-              </Star>
+              <Star className={voteStar(20, data.indexOf(movie))}>&#9733;</Star>
+              <Star className={voteStar(40, data.indexOf(movie))}>&#9733;</Star>
+              <Star className={voteStar(60, data.indexOf(movie))}>&#9733;</Star>
+              <Star className={voteStar(80, data.indexOf(movie))}>&#9733;</Star>
               <Star className={voteStar(100, data.indexOf(movie))}>
                 &#9733;
               </Star>
@@ -87,14 +79,20 @@ export default function ListMovies() {
         ))}
       </ul>
       <Pagination>
-        <BsArrowLeftShort className='backArrow' onClick={() => changePage(page - 1)} />
+        <BsArrowLeftShort
+          className="backArrow"
+          onClick={() => changePage(page - 1)}
+        />
         {page > 2 && <span onClick={() => changePage(1)}>1</span>}
         {page > 1 && (
           <span onClick={() => changePage(page - 1)}>... {page - 1}</span>
         )}
         <span className="active">{page}</span>
         <span onClick={() => changePage(page + 1)}>{page + 1} ...</span>
-        <BsArrowRightShort className='nextArrow' onClick={() => changePage(page + 1)} />
+        <BsArrowRightShort
+          className="nextArrow"
+          onClick={() => changePage(page + 1)}
+        />
       </Pagination>
     </Container>
   )

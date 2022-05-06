@@ -4,11 +4,6 @@ interface H2Props {
   backgroundImage: string
 }
 
-export const Container = styled.main`
-  span {
-  }
-`
-
 export const MovieArticle = styled.article<H2Props>`
   img {
     width: 100%;

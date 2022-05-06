@@ -10,6 +10,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { BsInstagram, BsTwitter } from 'react-icons/bs'
 import { useEffect } from 'react'
 import { loadRequest } from '../../store/ducks/moviesRepository/actions'
+import { Loading } from '../../components/Loading'
 
 export function Login() {
   const { data, loading } = useSelector((state: RootState) => state.moviesRepository)
@@ -25,7 +26,7 @@ export function Login() {
     <Container>
       <div>
         {loading ? (
-          <span></span>
+          <Loading />
         ) : (
           <>
             <img src={IMG_API + data[0].backdrop_path} alt={data[0].title} />

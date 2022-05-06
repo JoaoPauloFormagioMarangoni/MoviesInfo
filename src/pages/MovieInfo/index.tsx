@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux'
 import { Footer } from '../../components/Footer'
 import { Header } from '../../components/Header'
+import { Loading } from '../../components/Loading'
 import { RootState } from '../../store'
-import { Container, MovieArticle, Star } from './styles'
+import { MovieArticle, Star } from './styles'
 
 export default function MovieInfo() {
   const { oneMovie, loading } = useSelector(
@@ -32,17 +33,17 @@ export default function MovieInfo() {
   }
 
   return (
-    <Container>
+    <main>
       <Header />
       {loading ? (
-        <span></span>
+        <Loading />
       ) : (
         <MovieArticle backgroundImage={IMG_API + oneMovie.backdrop_path}>
           <img src={IMG_API + oneMovie.backdrop_path} alt="" />
           <h1>{oneMovie.title}</h1>
           <div>
             <div>
-              Linguagem original = <span>{oneMovie.original_language}</span>
+              Original language = <span>{oneMovie.original_language}</span>
             </div>
             <div>
               <span>{oneMovie.vote_average}</span>
@@ -63,7 +64,7 @@ export default function MovieInfo() {
               </Star>
             </div>
             <div>
-              Adicionado em{' '}
+              Added in{' '}
               {new Intl.DateTimeFormat('pt-BR').format(
                 new Date(oneMovie.release_date),
               )}
@@ -75,6 +76,6 @@ export default function MovieInfo() {
       )}
 
       <Footer />
-    </Container>
+    </main>
   )
 }
