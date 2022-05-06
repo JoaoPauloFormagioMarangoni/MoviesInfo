@@ -37,7 +37,7 @@ export const Main = styled.main`
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 3px 3px 10px #000;
-  
+
   z-index: 99;
   width: 35%;
   height: 90%;
@@ -107,6 +107,24 @@ export const Main = styled.main`
           filter: brightness(0.9);
         }
       }
+    }
+  }
+
+  @media (max-width: 745px) {
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  @media (max-width: 600px) {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    background-color: rgba(35,9,110,0.7);
+
+    > img {
+      border-radius: 0;
     }
   }
 `
