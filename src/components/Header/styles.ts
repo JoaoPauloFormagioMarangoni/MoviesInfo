@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.footer`
+export const Container = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,12 +22,115 @@ export const Container = styled.footer`
     position: relative;
 
     > div {
-      .user,
-      .config,
-      .home {
+      position: relative;
+
+      &.componentSearch {
+        display: flex;
+        align-items: center;
+      }
+
+      input {
+        border-radius: 10px;
+        border: 1px solid var(--text);
+        color: var(--text);
+        background: var(--background);
+
+        padding: 8px 15px;
+        font-size: 1rem;
+        margin-right: -30px;
+
+        &#active {
+          animation: active 1s;
+          width: 200px;
+          opacity: 1;
+        }
+
+        &#disabled {
+          animation: disabled 1s;
+          width: 0;
+          opacity: 0;
+        }
+
+        @keyframes active {
+          0% {
+            width: 0;
+            opacity: 0;
+          }
+          100% {
+            width: 200px;
+            opacity: 1;
+          }
+        }
+
+        @keyframes disabled {
+          0% {
+            width: 200px;
+            opacity: 1;
+          }
+          100% {
+            width: 0;
+            opacity: 0;
+          }
+        }
+      }
+
+      ul {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        z-index: 999;
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        list-style: none;
+        color: var(--text);
+        border: 1px solid var(--text);
+
+        background-color: var(--background);
+
+        height: 50vh;
+        overflow-y: auto;
+
+        li {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: 1px dashed var(--text);
+          padding: 10px;
+
+          button {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: var(--background);
+            border: 1px solid var(--text);
+            transition: all 0.2s;
+
+            .arrowMovie {
+              color: var(--text);
+            }
+
+            &:hover {
+              background-color: var(--text);
+
+              .arrowMovie {
+                color: var(--background);
+              }
+            }
+          }
+
+          &:last-child {
+            border: 0;
+          }
+        }
+      }
+
+      .icons {
         cursor: pointer;
         font-size: 1.7rem;
         color: var(--text);
+        z-index: 999;
 
         transition: all 0.2s;
 
@@ -110,16 +213,24 @@ export const Container = styled.footer`
     }
   }
 
-  @media (max-width: 365px) {
+  @media (max-width: 600px) {
     flex-direction: column;
 
     h1 {
       margin-bottom: 15px;
     }
 
-    div {
+    > div {
       width: 100%;
       justify-content: space-around;
+    }
+  }
+
+  @media (max-width: 370px) {
+    > div.active {
+      > div:not(:first-child) {
+        display: none;
+      }
     }
   }
 `

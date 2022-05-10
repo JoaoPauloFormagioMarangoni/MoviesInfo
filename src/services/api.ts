@@ -11,7 +11,7 @@ export const apiMovies = axios.create({
 })
 
 export const apiSearch = axios.create({
-  baseURL: `https://api.themoviedb.org/3/search/movie?api_key=${key}&language=pt-BR&page=1&query=`,
+  baseURL: `https://api.themoviedb.org/3/search`,
 })
 
 export const allMoviesNow = axios.create({

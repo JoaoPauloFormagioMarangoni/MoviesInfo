@@ -1,10 +1,14 @@
 import { RiHome2Line, RiUserLine } from 'react-icons/ri'
 import { BsGear } from 'react-icons/bs'
+import { BiSearchAlt, BiRightArrow } from 'react-icons/bi'
+
 import { Container } from './styles'
 import { useNavigate } from 'react-router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-// import {Translator, Translate} from 'react-auto-translate';
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../store'
+import { searchMovieRequest } from '../../store/ducks/moviesRepository/actions'
 
 interface ToggleThemeProps {
   toggleTheme: (changeTheme: string) => void
@@ -13,7 +17,18 @@ interface ToggleThemeProps {
 export function Header({ toggleTheme }: ToggleThemeProps) {
   const navigate = useNavigate()
 
+  const { searchMovie, loading } = useSelector(
+    (state: RootState) => state.moviesRepository,
+  )
+  const dispatch = useDispatch()
+
   const [config, setConfig] = useState(false)
+  const [activeSearch, setActiveSearch] = useState(false)
+  const [movie, setMovie] = useState('')
+
+  useEffect(() => {
+    dispatch(searchMovieRequest(movie))
+  }, [movie])
 
   function handleBackHome() {
     navigate('/home')
@@ -23,27 +38,41 @@ export function Header({ toggleTheme }: ToggleThemeProps) {
     setConfig(!config)
   }
 
+  function handleActiveSearch() {
+    setActiveSearch(!activeSearch)
+  }
+
   return (
-    // <Translator
-    //   cacheProvider={cacheProvider}
-    //   from='en'
-    //   to='es'
-    //   googleApiKey='API_KEY'
-    // >
     <Container>
       <h1>Movies.Info</h1>
-      {/* <h2>
-        <Translate>Welcome!</Translate>
-      </h2> */}
-      <div>
-        <div>
-          <RiUserLine className="user" />
+      <div className={activeSearch ? 'active' : 'disabled'}>
+        <div className="componentSearch">
+          <input
+            type="search"
+            onChange={(event) => setMovie(event.currentTarget.value.trim())}
+            name="search"
+            id={activeSearch ? 'active' : 'disabled'}
+            placeholder="Search"
+          />
+          <BiSearchAlt onClick={handleActiveSearch} className="icons" />
+          {loading && (
+            <ul>
+              {searchMovie.map(movie => (
+                <li key={movie.id}>
+                  {movie.title} <button><BiRightArrow className='arrowMovie' /></button>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <div>
-          <RiHome2Line className="home" onClick={handleBackHome} />
+          <RiUserLine className="icons" />
         </div>
         <div>
-          <BsGear onClick={handleActivateConfig} className="config" />
+          <RiHome2Line className="icons" onClick={handleBackHome} />
+        </div>
+        <div>
+          <BsGear onClick={handleActivateConfig} className="icons" />
           <div className={config ? 'activeConfig' : 'disabledConfig'}>
             <select name="language">
               <option value="en">English</option>
@@ -58,6 +87,5 @@ export function Header({ toggleTheme }: ToggleThemeProps) {
         </div>
       </div>
     </Container>
-    // </Translator>
   )
 }

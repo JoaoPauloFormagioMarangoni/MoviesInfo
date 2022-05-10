@@ -8,6 +8,8 @@ export enum MoviesRepositoriesTypes {
   LOAD_FAILURE = '@MoviesRepositories/LOAD_FAILURE',
   GET_BY_ID = '@MoviesRepositories/GET_BY_ID',
   GET_BY_ID_SUCCESS = '@MoviesRepositories/GET_BY_ID_SUCCESS',
+  SEARCH_BY_NAME = '@MoviesRepositories/SEARCH_BY_NAME',
+  SEARCH_BY_NAME_SUCCESS = '@MoviesRepositories/SEARCH_BY_NAME_SUCCESS',
 }
 
 /**
@@ -35,4 +37,5 @@ export interface RepositoriesState {
   readonly loading: boolean
   readonly error: boolean
   readonly oneMovie: Repository
+  readonly searchMovie: Repository[]
 }

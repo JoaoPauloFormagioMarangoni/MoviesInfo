@@ -1,8 +1,13 @@
 import { SagaIterator } from 'redux-saga'
 import { all, call, put, takeLatest, takeLeading } from 'redux-saga/effects'
-import { apiMovies } from '../../../services/api'
+import { apiMovies, apiSearch } from '../../../services/api'
 
-import { loadSuccess, loadFailure, getOneMovieSuccess } from './actions'
+import {
+  loadSuccess,
+  loadFailure,
+  getOneMovieSuccess,
+  searchMovieSuccess,
+} from './actions'
 import { MoviesRepositoriesTypes } from './types'
 
 const key = 'd14e67e6fd49d76f1009420c7fd77610'
@@ -31,10 +36,25 @@ function* getMovieById(action: any): SagaIterator {
   }
 }
 
+function* searchMovieByName(action: any): SagaIterator {
+  try {
+    if (action.payload.name !== '') {
+      const response = yield call(
+        apiSearch.get,
+        `movie?api_key=${key}&query=${action.payload.name}`,
+      )
+      yield put(searchMovieSuccess(response.data))
+    }
+  } catch (err) {
+    yield put(loadFailure())
+  }
+}
+
 function* moviesRepositoriesSaga() {
   yield all([
     takeLatest(MoviesRepositoriesTypes.LOAD_REQUEST, loadMovies),
     takeLeading(MoviesRepositoriesTypes.GET_BY_ID, getMovieById),
+    takeLeading(MoviesRepositoriesTypes.SEARCH_BY_NAME, searchMovieByName),
   ])
 }
 
