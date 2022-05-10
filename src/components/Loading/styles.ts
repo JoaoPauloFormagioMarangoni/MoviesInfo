@@ -38,7 +38,7 @@ export const LoadingStyle = styled.div`
     width: 120px;
     height: 60px;
     border-radius: 120px 120px 0 0;
-    background: #7a0bc0;
+    background: var(--purple);
     animation: ldio-wmxti4vwpv-1 1s linear infinite;
     transform-origin: 60px 60px;
   }

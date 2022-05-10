@@ -9,11 +9,15 @@ export const Container = styled.footer`
 
   > span {
     font-size: 1.3rem;
-    color: #7a0bc0;
+    color: var(--purple);
     font-weight: bold;
     font-family: 'Palette Mosaic', cursive;
     text-shadow: 2px 2px 0px #fff, 2px -2px 0px #000, -2px 2px 0px #000,
       -2px -2px 0px #fff;
+  }
+
+  p {
+    color: var(--text);
   }
 
   @media (max-width: 430px) {

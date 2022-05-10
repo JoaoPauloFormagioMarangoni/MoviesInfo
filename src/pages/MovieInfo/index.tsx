@@ -5,7 +5,11 @@ import { Loading } from '../../components/Loading'
 import { RootState } from '../../store'
 import { MovieArticle, Star } from './styles'
 
-export default function MovieInfo() {
+interface ToggleThemeProps {
+  toggleTheme: (changeTheme: string) => void
+}
+
+export default function MovieInfo({ toggleTheme }: ToggleThemeProps) {
   const { oneMovie, loading } = useSelector(
     (state: RootState) => state.moviesRepository,
   )
@@ -25,7 +29,6 @@ export default function MovieInfo() {
     if (completeStar) {
       return 'star active'
     } else if (halfStar) {
-      console.log(verificationNumber)
       return 'star halfActive'
     }
 
@@ -34,7 +37,7 @@ export default function MovieInfo() {
 
   return (
     <main>
-      <Header />
+      <Header toggleTheme={toggleTheme} />
       {loading ? (
         <Loading />
       ) : (

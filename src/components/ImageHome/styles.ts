@@ -23,7 +23,7 @@ export const Container = styled.div`
       right: 45px;
 
       font-size: 3rem;
-      background: linear-gradient(90deg, #7a0bc0 20%, var(--pink) 100%);
+      background: linear-gradient(90deg, var(--purple) 20%, var(--pink) 100%);
 
       background-clip: text;
       -webkit-background-clip: text;
@@ -68,7 +68,7 @@ export const Container = styled.div`
       border-radius: 50px;
       border: none;
       background-color: rgba(255, 255, 255, 0.4);
-      color: #7a0bc0;
+      color: var(--purple);
       font-weight: bold;
 
       .arrow {

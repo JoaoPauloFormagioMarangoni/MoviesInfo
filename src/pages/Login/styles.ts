@@ -25,7 +25,7 @@ export const Container = styled.div`
       right: 80px;
       z-index: 99;
       font-size: 5rem;
-      text-shadow: 2px 2px 0px #7a0bc0, 2px -2px 0px var(--pink),
+      text-shadow: 2px 2px 0px var(--purple), 2px -2px 0px var(--pink),
         -2px 2px 0px var(--pink), -2px -2px 0px var(--pink);
 
       font-family: 'Palette Mosaic', cursive;

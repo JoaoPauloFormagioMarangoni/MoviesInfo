@@ -143,9 +143,10 @@ export const Pagination = styled.div`
 
   font-size: 1.3rem;
   font-weight: bolder;
+  color: var(--text);
 
   span.active {
-    color: rgba(126, 11, 192, 1);
+    color: var(--purple);
   }
 
   .backArrow,

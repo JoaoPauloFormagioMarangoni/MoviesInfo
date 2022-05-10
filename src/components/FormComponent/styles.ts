@@ -16,7 +16,7 @@ export const Form = styled.form`
   #password,
   #email {
     background-color: transparent;
-    border: 2px solid #7a0bc0;
+    border: 2px solid var(--purple);
     font-size: 1.2rem;
     padding: 7px 15px;
     color: #fff;
@@ -32,7 +32,7 @@ export const Form = styled.form`
     border-radius: 5px;
     color: #fff;
     border: none;
-    background: linear-gradient(93.71deg, #7a0bc0 13.27%, #fa58b6 101.64%);
+    background: linear-gradient(93.71deg, var(--purple) 13.27%, #fa58b6 101.64%);
     margin-left: 50%;
     transform: translateX(-50%);
     cursor: pointer;
@@ -86,7 +86,7 @@ export const LabelCheckbox = styled.label`
     height: 20px;
     margin-right: 5px;
     background-color: transparent;
-    border: 2px solid #7a0bc0;
+    border: 2px solid var(--purple);
     border-radius: 5px;
     position: relative;
 
@@ -98,7 +98,7 @@ export const LabelCheckbox = styled.label`
       left: 4px;
       width: 5px;
       height: 10px;
-      border: solid #7a0bc0;
+      border: solid var(--purple);
       border-width: 0 3px 3px 0;
       transform: rotate(45deg);
     }

@@ -2,7 +2,9 @@ import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
     :root {
-        --pink: #E10856;
+        --background: ${(props) => props.theme.colors.background};
+        --purple: ${(props) => props.theme.colors.primary};
+        --text: ${(props) => props.theme.colors.text};
     }
 
     * {

@@ -1,10 +1,9 @@
 const darkModeOff = {
     title: 'light',
     colors: {
-      primary: '#E88529',
+      primary: '#7a0bc0',
       background: '#FBFBFB',
-      text: '#f6f6f6',
-      name: '#000'
+      text: '#000'
     },
   };
   

@@ -1,10 +1,9 @@
 const darkModeOn = {
     title: 'dark',
     colors: {
-      primary: '#b96c25',
+      primary: '#7a0bc0',
       background: '#393939',
-      text: '#e9e9e9',
-      name: '#e9e9e9'
+      text: '#e9e9e9'
     },
   };
   

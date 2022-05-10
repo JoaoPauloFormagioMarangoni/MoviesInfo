@@ -38,7 +38,7 @@ export const MovieArticle = styled.article<H2Props>`
       padding: 10px 25px;
       background: rgba(122, 11, 192, 1);
       border-radius: 10px;
-      box-shadow: 0px 0px 8px #000, inset 0px 0px 8px #000;
+      box-shadow: 0px 0px 8px var(--text), inset 0px 0px 8px var(--text);
       border: 2px solid rgba(122, 11, 192, 1);
       color: #fff;
       font-size: 1.2rem;
@@ -59,6 +59,7 @@ export const MovieArticle = styled.article<H2Props>`
     margin: 20px 0 40px;
     margin-left: 50%;
     transform: translateX(-50%);
+    color: var(--text);
   }
 
   @media (max-width: 680px) {
