@@ -17,6 +17,7 @@ const INITIAL_STATE: RepositoriesState = {
   data: [dataMovie],
   error: false,
   loading: false,
+  loadingSearch: false,
   oneMovie: dataMovie,
   searchMovie: [dataMovie],
 }
@@ -49,14 +50,20 @@ const reducer: Reducer<RepositoriesState> = (state = INITIAL_STATE, action) => {
     case MoviesRepositoriesTypes.SEARCH_BY_NAME:
       return {
         ...state,
-        loading: true,
+        loadingSearch: true,
       }
     case MoviesRepositoriesTypes.SEARCH_BY_NAME_SUCCESS:
       return {
         ...state,
-        loading: false,
+        loadingSearch: false,
         error: false,
         searchMovie: action.payload.data.results,
+      }
+    case MoviesRepositoriesTypes.SEARCH_BY_NAME_FAILURE:
+      return {
+        ...state,
+        loadingSearch: true,
+        searchMovie: [],
       }
     default:
       return { ...state }

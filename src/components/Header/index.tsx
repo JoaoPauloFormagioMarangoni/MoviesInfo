@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store'
-import { searchMovieRequest } from '../../store/ducks/moviesRepository/actions'
+import { getOneMovieRequest, searchMovieRequest } from '../../store/ducks/moviesRepository/actions'
 
 interface ToggleThemeProps {
   toggleTheme: (changeTheme: string) => void
@@ -17,7 +17,7 @@ interface ToggleThemeProps {
 export function Header({ toggleTheme }: ToggleThemeProps) {
   const navigate = useNavigate()
 
-  const { searchMovie, loading } = useSelector(
+  const { searchMovie, loadingSearch } = useSelector(
     (state: RootState) => state.moviesRepository,
   )
   const dispatch = useDispatch()
@@ -42,6 +42,12 @@ export function Header({ toggleTheme }: ToggleThemeProps) {
     setActiveSearch(!activeSearch)
   }
 
+  function handleSelectMovie(id: number) {
+    dispatch(getOneMovieRequest(id))
+
+    navigate('/movieinfo')
+  }
+
   return (
     <Container>
       <h1>Movies.Info</h1>
@@ -55,11 +61,11 @@ export function Header({ toggleTheme }: ToggleThemeProps) {
             placeholder="Search"
           />
           <BiSearchAlt onClick={handleActiveSearch} className="icons" />
-          {loading && (
+          {!loadingSearch && (
             <ul>
               {searchMovie.map(movie => (
                 <li key={movie.id}>
-                  {movie.title} <button><BiRightArrow className='arrowMovie' /></button>
+                  {movie.title} <button onClick={() => handleSelectMovie(movie.id)}><BiRightArrow className='arrowMovie' /></button>
                 </li>
               ))}
             </ul>

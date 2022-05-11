@@ -35,7 +35,7 @@ export const Container = styled.header`
         color: var(--text);
         background: var(--background);
 
-        padding: 8px 15px;
+        padding: 8px 30px 8px 15px;
         font-size: 1rem;
         margin-right: -30px;
 

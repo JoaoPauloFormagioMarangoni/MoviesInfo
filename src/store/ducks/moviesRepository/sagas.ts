@@ -7,6 +7,7 @@ import {
   loadFailure,
   getOneMovieSuccess,
   searchMovieSuccess,
+  searchMovieFailure,
 } from './actions'
 import { MoviesRepositoriesTypes } from './types'
 
@@ -44,9 +45,11 @@ function* searchMovieByName(action: any): SagaIterator {
         `movie?api_key=${key}&query=${action.payload.name}`,
       )
       yield put(searchMovieSuccess(response.data))
+    } else {
+      yield put(searchMovieFailure())
     }
   } catch (err) {
-    yield put(loadFailure())
+    yield put(searchMovieFailure())
   }
 }
 
