@@ -1,5 +1,6 @@
 import { SagaIterator } from 'redux-saga'
 import { all, call, put, takeLatest, takeLeading } from 'redux-saga/effects'
+import i18n from '../../../i18n'
 import { apiMovies, apiSearch } from '../../../services/api'
 
 import {
@@ -29,7 +30,7 @@ function* getMovieById(action: any): SagaIterator {
   try {
     const response = yield call(
       apiMovies.get,
-      `movie/${action.payload.id}?api_key=${key}`,
+      `movie/${action.payload.id}?api_key=${key}&language=${i18n.language}`,
     )
     yield put(getOneMovieSuccess(response.data))
   } catch (err) {

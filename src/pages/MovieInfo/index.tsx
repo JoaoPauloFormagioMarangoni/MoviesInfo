@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
 import { Footer } from '../../components/Footer'
 import { Header } from '../../components/Header'
 import { Loading } from '../../components/Loading'
+import i18n from '../../i18n'
 import { RootState } from '../../store'
+import { getOneMovieRequest } from '../../store/ducks/moviesRepository/actions'
 import { MovieArticle, Star } from './styles'
 
 interface ToggleThemeProps {
@@ -11,9 +14,12 @@ interface ToggleThemeProps {
 }
 
 export default function MovieInfo({ toggleTheme }: ToggleThemeProps) {
+  const { t } = useTranslation()
+
   const { oneMovie, loading } = useSelector(
     (state: RootState) => state.moviesRepository,
   )
+  const dispatch = useDispatch()
   const [movie, setMovie] = useState(oneMovie)
 
   const IMG_API = 'https://image.tmdb.org/t/p/w1280'
@@ -40,33 +46,37 @@ export default function MovieInfo({ toggleTheme }: ToggleThemeProps) {
   useEffect(() => {
     const movieStore = localStorage.getItem('MOVIEINFO')
     if (movieStore) {
-      setMovie(JSON.parse(movieStore))
+      const movieObject = JSON.parse(movieStore)
+      setMovie(movieObject)
+      dispatch(getOneMovieRequest(movieObject.id))
     }
   }, [])
 
   useEffect(() => {
-    if(oneMovie.id !== movie.id) {
+    if (oneMovie.title !== movie.title) {
       localStorage.setItem('MOVIEINFO', JSON.stringify(oneMovie))
       setMovie(oneMovie)
     }
   }, [loading])
 
+  useEffect(() => {
+    if (movie.id) {
+      dispatch(getOneMovieRequest(movie.id))
+    }
+  }, [i18n.language])
+
   return (
     <main>
       <Header toggleTheme={toggleTheme} />
-      {(loading || movie.backdrop_path === '') ? (
+      {loading || movie.backdrop_path === '' ? (
         <Loading />
       ) : (
-        <MovieArticle
-          backgroundImage={
-            IMG_API + movie.backdrop_path
-          }
-        >
+        <MovieArticle backgroundImage={IMG_API + movie.backdrop_path}>
           <img src={IMG_API + movie.backdrop_path} alt="" />
           <h1>{movie.title}</h1>
           <div>
             <div>
-              Original language = <span>{movie.original_language}</span>
+              {t('Original language')} = <span>{movie.original_language}</span>
             </div>
             <div>
               <span>{movie.vote_average}</span>
@@ -87,8 +97,8 @@ export default function MovieInfo({ toggleTheme }: ToggleThemeProps) {
               </Star>
             </div>
             <div>
-              Added in{' '}
-              {new Intl.DateTimeFormat('pt-BR').format(
+              {t('Added in')}{' '}
+              {new Intl.DateTimeFormat(i18n.language).format(
                 new Date(movie.release_date),
               )}
             </div>

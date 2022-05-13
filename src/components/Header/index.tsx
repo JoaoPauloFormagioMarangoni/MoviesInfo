@@ -8,13 +8,20 @@ import { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store'
-import { getOneMovieRequest, searchMovieRequest } from '../../store/ducks/moviesRepository/actions'
+import {
+  getOneMovieRequest,
+  searchMovieRequest,
+} from '../../store/ducks/moviesRepository/actions'
+
+import { useTranslation } from 'react-i18next'
+import i18n from '../../i18n'
 
 interface ToggleThemeProps {
   toggleTheme: (changeTheme: string) => void
 }
 
 export function Header({ toggleTheme }: ToggleThemeProps) {
+  const { t } = useTranslation()
   const navigate = useNavigate()
 
   const { searchMovie, loadingSearch } = useSelector(
@@ -30,22 +37,18 @@ export function Header({ toggleTheme }: ToggleThemeProps) {
     dispatch(searchMovieRequest(movie))
   }, [movie])
 
-  function handleBackHome() {
-    navigate('/home')
-  }
-
-  function handleActivateConfig() {
-    setConfig(!config)
-  }
-
-  function handleActiveSearch() {
-    setActiveSearch(!activeSearch)
-  }
-
   function handleSelectMovie(id: number) {
     dispatch(getOneMovieRequest(id))
 
     navigate('/movieinfo')
+  }
+
+  function handleChangeLanguage(event: any) {
+    if (event.currentTarget.value === 'pt-BR') {
+      i18n.changeLanguage('pt-BR')
+    } else {
+      i18n.changeLanguage('en-US')
+    }
   }
 
   return (
@@ -60,12 +63,18 @@ export function Header({ toggleTheme }: ToggleThemeProps) {
             id={activeSearch ? 'active' : 'disabled'}
             placeholder="Search"
           />
-          <BiSearchAlt onClick={handleActiveSearch} className="icons" />
+          <BiSearchAlt
+            onClick={() => setActiveSearch(!activeSearch)}
+            className="icons"
+          />
           {!loadingSearch && (
             <ul>
-              {searchMovie.map(movie => (
+              {searchMovie.map((movie) => (
                 <li key={movie.id}>
-                  {movie.title} <button onClick={() => handleSelectMovie(movie.id)}><BiRightArrow className='arrowMovie' /></button>
+                  {movie.title}{' '}
+                  <button onClick={() => handleSelectMovie(movie.id)}>
+                    <BiRightArrow className="arrowMovie" />
+                  </button>
                 </li>
               ))}
             </ul>
@@ -75,20 +84,24 @@ export function Header({ toggleTheme }: ToggleThemeProps) {
           <RiUserLine className="icons" />
         </div>
         <div>
-          <RiHome2Line className="icons" onClick={handleBackHome} />
+          <RiHome2Line className="icons" onClick={() => navigate('/home')} />
         </div>
         <div>
-          <BsGear onClick={handleActivateConfig} className="icons" />
+          <BsGear onClick={() => setConfig(!config)} className="icons" />
           <div className={config ? 'activeConfig' : 'disabledConfig'}>
-            <select name="language">
-              <option value="en">English</option>
-              <option value="pt">Portuguese</option>
+            <select
+              name="language"
+              onChange={handleChangeLanguage}
+              value={i18n.language}
+            >
+              <option value="en-US">{t('English')}</option>
+              <option value="pt-BR">{t('Portuguese')}</option>
             </select>
             <div>
-              <span onClick={() => toggleTheme('light')}>Light</span>
-              <span onClick={() => toggleTheme('dark')}>Dark</span>
+              <span onClick={() => toggleTheme('light')}>{t('Light')}</span>
+              <span onClick={() => toggleTheme('dark')}>{t('Dark')}</span>
             </div>
-            <button>Leave</button>
+            <button>{t('Leave')}</button>
           </div>
         </div>
       </div>

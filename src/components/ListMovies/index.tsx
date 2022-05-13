@@ -9,8 +9,11 @@ import {
   loadRequest,
 } from '../../store/ducks/moviesRepository/actions'
 import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 export default function ListMovies() {
+  const { t } = useTranslation()
+
   const navigate = useNavigate()
   const [page, setPage] = useState(1)
 
@@ -58,7 +61,7 @@ export default function ListMovies() {
   return (
     <Container>
       <H2 backgroundImage={IMG_API + data[0].backdrop_path}>
-        Latest movies released
+        {t("Latest movies released")}
       </H2>
       <ul>
         {data.map((movie) => (

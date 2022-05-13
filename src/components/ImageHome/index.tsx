@@ -8,9 +8,12 @@ import {
   loadRequest,
 } from '../../store/ducks/moviesRepository/actions'
 import { useNavigate } from 'react-router'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+
+import { useTranslation } from 'react-i18next'
 
 export function ImageHome() {
+  const { t } = useTranslation()
   const { data } = useSelector((state: RootState) => state.moviesRepository)
 
   const navigate = useNavigate()
@@ -60,7 +63,7 @@ export function ImageHome() {
           <Star className={voteStar(100)}>&#9733;</Star>
         </div>
         <button onClick={() => handleSelectMovie(data[0].id)}>
-          Ver informações <BiRightArrow className="arrow" />
+          {t("See information")} <BiRightArrow className="arrow" />
         </button>
       </div>
     </Container>

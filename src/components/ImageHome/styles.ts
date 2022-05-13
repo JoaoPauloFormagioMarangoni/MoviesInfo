@@ -23,7 +23,7 @@ export const Container = styled.div`
       right: 45px;
 
       font-size: 3rem;
-      background: linear-gradient(90deg, var(--purple) 20%, var(--pink) 100%);
+      background: linear-gradient(90deg, var(--purple) 20%, #E10856 100%);
 
       background-clip: text;
       -webkit-background-clip: text;

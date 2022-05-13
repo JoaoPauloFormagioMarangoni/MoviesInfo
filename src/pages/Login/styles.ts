@@ -25,8 +25,8 @@ export const Container = styled.div`
       right: 80px;
       z-index: 99;
       font-size: 5rem;
-      text-shadow: 2px 2px 0px var(--purple), 2px -2px 0px var(--pink),
-        -2px 2px 0px var(--pink), -2px -2px 0px var(--pink);
+      text-shadow: 2px 2px 0px var(--purple), 2px -2px 0px #E10856,
+        -2px 2px 0px #E10856, -2px -2px 0px #E10856;
 
       font-family: 'Palette Mosaic', cursive;
     }
@@ -96,7 +96,7 @@ export const Main = styled.main`
 
         &:nth-child(2) {
           margin: 0 15px;
-          color: var(--pink);
+          color: #E10856;
         }
 
         &:nth-child(3) {
